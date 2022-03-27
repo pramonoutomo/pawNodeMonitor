@@ -139,6 +139,8 @@ $data = $cache->fetch($apiName, function () use (
     // get the account weight
     $rpcNodeAccountWeight = getAccountWeight($ch, $nanoNodeAccount);
     $data->votingWeight = rawToCurrency($rpcNodeAccountWeight->{'weight'}, $currency);
+    $rewardsweight=$rpcNodeAccountWeight->{'weight'}-$rpcNodeAccountBalance->{'balance'};
+    $data->votingWeight2 = rawToCurrency($rewardsweight, $currency);
 
     // -- System uptime & memory info --
     $data->systemLoad = getSystemLoadAvg();

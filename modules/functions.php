@@ -16,13 +16,13 @@ function phpCurlAvailable()
 // raw to Mnano
 function rawToMnano($raw)
 {
-  return (float) ($raw / 1000000000000000000000000000000.0);
+  return (float) ($raw / 1000000000000000000000000000.0);
 }
 
-// raw to banano
+// raw to paw
 function rawToBanano($raw)
 {
-  return rawToMnano($raw) * 10.;
+  return rawToMnano($raw) * 12.;
 }
 
 // raw to currency
@@ -117,7 +117,7 @@ function getLatestReleaseVersion()
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
       "cache-control: no-cache",
-      "User-Agent: NanoNodeMonitor"
+      "User-Agent: PawNodeMonitor"
     ),
   ));
 
@@ -174,7 +174,7 @@ function getLatestNodeReleaseVersion()
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://api.github.com/repos/nanocurrency/nano-node/releases/latest',
+    CURLOPT_URL => 'https://api.github.com/repos/pramonoutomo/pawNodeMonitor/releases/latest',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -184,7 +184,7 @@ function getLatestNodeReleaseVersion()
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
       "cache-control: no-cache",
-      "User-Agent: NanoNodeMonitor"
+      "User-Agent: PawNodeMonitor"
     ),
   ));
 
@@ -222,8 +222,8 @@ function formatVersion($rawversion){
 function isNewNodeVersionAvailable($currentVersion, $latestVersion, $currency)
 {
 
-  // for now, we can only check nano reliably
-  if ($currency != "nano") {
+  // for now, we can only check paw reliably
+  if ($currency != "Paw") {
     return false;
   } 
 
@@ -288,7 +288,7 @@ function getNodeUptime($apiKey, $uptimeRatio = 30)
   return (float)$response->monitors[0]->custom_uptime_ratio;
 }
 
-// truncate long Nano addresses to display the first and
+// truncate long Paw addresses to display the first and
 // last characters with ellipsis in the center
 function truncateAddress($addr)
 {
@@ -296,9 +296,9 @@ function truncateAddress($addr)
   $numEllipsis  = 3; // ...
   $numPrefix    = 4; // xrb_
 
-  // handle nano_ prefix of addresses
+  // handle paw_ prefix of addresses
 
-  if (substr($addr, 0, 5) === "nano_")
+  if (substr($addr, 0, 5) === "paw_")
   {
     $numPrefix = 5;
   }
@@ -315,14 +315,10 @@ function getAccountUrl($account, $blockExplorer)
 
   switch ($blockExplorer)
   {
-    case 'ninja':
-      return "https://mynano.ninja/account/" . $account;
-    case 'nanocrawler-beta':
-      return "https://beta.nanocrawler.cc/explorer/account/" . $account;
-    case 'banano':
-      return "https://creeper.banano.cc/explorer/account/" . $account;
+    case 'pawtracker':
+      return "https://tracker.paw.digital/account/" . $account;
     default:
-      return "https://nanocrawler.cc/explorer/account/" . $account;
+      return "https://tracker.paw.digital/account/" . $account;
   }
 }
 
@@ -398,14 +394,11 @@ function getNodeLocation($nodeLocationByUser, $nodeNinja) {
 function currencyName($currency) 
 {
   switch ($currency) {
-    case 'banano':
-      return "Banano";
-    
-    case 'nano-beta':
-      return "Nano BETA";
+    case 'Paw':
+      return "Paw";
     
     default:
-      return "Nano";
+      return "Paw";
   }
 
 }
@@ -415,14 +408,11 @@ function currencyName($currency)
 function currencySymbol($currency) 
 {
   switch ($currency) {
-    case 'banano':
-      return "BANANO";
-    
-    case 'nano-beta':
-      return "\u{3B2}NANO";
+    case 'Paw':
+      return "PAW";
     
     default:
-      return "NANO";
+      return "PAW";
   }
 
 }
